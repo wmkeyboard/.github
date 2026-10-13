@@ -2,11 +2,11 @@ name: Sync profile README
 
 # Keeps profile/README.md (the organization profile page) in step with the
 # README of wasi-master/wmkeyboard. Nothing pushes here from the source repo;
-# this run polls it, rewrites relative links to absolute ones, and commits only
+# this daily run fetches it, rewrites relative links to absolute ones, and commits only
 # when the result differs.
 on:
   schedule:
-    - cron: '*/30 * * * *'
+    - cron: '17 3 * * *'
   workflow_dispatch:
 
 permissions:
