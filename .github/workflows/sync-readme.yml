@@ -10,6 +10,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: write
   contents: write
 
 concurrency:
@@ -21,6 +22,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
+      # GitHub disables a scheduled workflow after 60 days without a commit to
+      # the repository, and an unchanged README makes none. Re-enabling it
+      # resets that clock.
+      - name: Keep the schedule alive
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X PUT "repos/$GITHUB_REPOSITORY/actions/workflows/sync-readme.yml/enable"
+
       - uses: actions/checkout@v4
 
       - name: Fetch and rewrite
