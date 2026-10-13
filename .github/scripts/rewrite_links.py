@@ -20,7 +20,7 @@ def relative(url):
 def fix(url, image):
     if not relative(url):
         return url
-    return (RAW if image else BLOB) + url.lstrip("./") if url.startswith("./") else (RAW if image else BLOB) + url
+    return (RAW if image else BLOB) + url.removeprefix("./")
 
 
 IMAGE_EXT = re.compile(r"\.(png|jpe?g|gif|svg|webp|avif)(\?.*)?$", re.I)
